@@ -16,7 +16,7 @@ describe LiveOrderBoard do
 
   describe '#buy' do
     it 'delegates to the order object' do
-      expect(mock_order_class).to receive(:register).with(user_id, order_quantity, price_per_kg, buy )
+      expect(mock_order_class).to receive(:register).with(user_id, order_quantity, price_per_kg, buy)
       live_order_board.buy(user_id, order_quantity, price_per_kg)
     end
 
@@ -35,7 +35,7 @@ describe LiveOrderBoard do
 
   describe '#sell' do
     it 'delegates to the order object' do
-      expect(mock_order_class).to receive(:register).with(user_id, order_quantity, price_per_kg, sell )
+      expect(mock_order_class).to receive(:register).with(user_id, order_quantity, price_per_kg, sell)
       live_order_board.sell(user_id, order_quantity, price_per_kg)
     end
 
