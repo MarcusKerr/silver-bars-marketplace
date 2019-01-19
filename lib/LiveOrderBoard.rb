@@ -16,6 +16,11 @@ class LiveOrderBoard
     @order.register(user_id, order_quantity, price_per_kg, :BUY)
   end
 
+  def sell(user_id, order_quantity, price_per_kg)
+    validate_details(user_id, order_quantity, price_per_kg)
+    @order.register(user_id, order_quantity, price_per_kg, :SELL)
+  end
+
   private
 
   def validate_details(user_id, order_quantity, price_per_kg)
