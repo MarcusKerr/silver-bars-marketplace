@@ -1,5 +1,7 @@
 # SilverBars Marketplace Tech Test
 
+[![Build Status](https://travis-ci.org/MarcusKerr/silver-bars-marketplace.svg?branch=master)](https://travis-ci.org/MarcusKerr/silver-bars-marketplace)
+
 ## Usage
 
 ## User Stories
