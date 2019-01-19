@@ -6,12 +6,12 @@ describe LiveOrderBoard do
   let(:user_id) { 1 }
   let(:order_quantity) { 3.5 }
   let(:price_per_kg) { 303 }
-  let(:order_type) { :BUY }
+  let(:order_type) { 'BUY' }
 
   let(:mock_order_class) { double :order_class, register: mock_order }
   let(:mock_order) { double :order_instane }
 
-  let(:live_order_board) {described_class.new(mock_order_class)}
+  let(:live_order_board) { described_class.new(mock_order_class) }
 
   describe '#register_order' do
     it 'delegates to the order object' do
