@@ -3,8 +3,13 @@
 require 'LiveOrderBoard'
 
 describe LiveOrderBoard do
-  it 'allows a user to register an order' do
-    live_order_board = LiveOrderBoard.new
-    expect { live_order_board.register_order(1, 3.5, 303, 'BUY') }.not_to raise_error
+  let(:live_order_board) { subject }
+
+  it "allows a user to register 'BUY' orders" do
+    expect { live_order_board.buy(1, 3.5, 303) }.not_to raise_error
+  end
+
+  it "allows a user to register 'SELL' orders" do
+    expect { live_order_board.sell(1, 3.5, 303) }.not_to raise_error
   end
 end
