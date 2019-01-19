@@ -1,9 +1,6 @@
 # SilverBars Marketplace Tech Test
 
-## How To Use
-
-### Prerequsites
-Must hvae Ruby installed on yopur machine, you can download Ruby here
+## Usage
 
 ## User Stories
 
