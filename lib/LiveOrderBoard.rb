@@ -2,6 +2,11 @@
 
 require_relative 'Order'
 
+USER_ID_ERROR = 'User id must be a whole number'
+QUANTITY_ERROR = 'Order quantity must be a number(kg)'
+PRICE_ERROR = 'Price per kg must be a number(£)'
+TYPE_ERROR = "Order type must be 'BUY' or 'SELL'"
+
 class LiveOrderBoard
   def initialize(order = Order)
     @order = order
@@ -22,15 +27,15 @@ class LiveOrderBoard
   end
 
   def validate_id(user_id)
-    raise 'User id must be a whole number' unless user_id.is_a? Integer
+    raise USER_ID_ERROR unless user_id.is_a? Integer
   end
 
   def validate_quantity(order_quantity)
-    raise 'Order quantity must be a number(kg)' unless numeric?(order_quantity)
+    raise QUANTITY_ERROR unless numeric?(order_quantity)
   end
 
   def validate_price(price_per_kg)
-    raise 'Price per kg must be a number(£)' unless numeric?(price_per_kg)
+    raise PRICE_ERROR unless numeric?(price_per_kg)
   end
 
   def numeric?(value)
@@ -39,6 +44,6 @@ class LiveOrderBoard
 
   def validate_type(order_type)
     valid_types = %w[BUY SELL]
-    raise "Order type must be 'BUY' or 'SELL'" unless valid_types.include?(order_type)
+    raise TYPE_ERROR unless valid_types.include?(order_type)
   end
 end
