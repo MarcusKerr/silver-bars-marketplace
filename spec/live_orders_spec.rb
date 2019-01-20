@@ -32,11 +32,21 @@ describe LiveOrders do
   end
 
   describe '#cancel' do
-    context 'cancel buy order' do
+    context 'buy order' do
       it'removes order from buy array' do
         live_orders.add(user_id, order_quantity, price_per_kg, buy)
+        expect(live_orders.buys).not_to be_empty
         live_orders.cancel('1b')
         expect(live_orders.buys).to be_empty
+      end
+    end
+
+    context 'sell order' do
+      it 'removes order from sell array' do
+        live_orders.add(user_id, order_quantity, price_per_kg, sell)
+        expect(live_orders.sells).not_to be_empty
+        live_orders.cancel('1s')
+        expect(live_orders.sells).to be_empty
       end
     end
   end
