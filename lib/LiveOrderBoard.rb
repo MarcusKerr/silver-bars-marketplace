@@ -3,11 +3,10 @@
 require_relative 'Order'
 require_relative 'Summary'
 
-USER_ID_ERROR = 'User id must be a whole number'
-QUANTITY_ERROR = 'Order quantity must be a number(kg)'
-PRICE_ERROR = 'Price per kg must be a number(£)'
-
 class LiveOrderBoard
+  USER_ID_ERROR = 'User id must be a whole number'
+  QUANTITY_ERROR = 'Order quantity must be a number(kg)'
+  PRICE_ERROR = 'Price per kg must be a number(£)'
   attr_reader :orders
 
   def initialize(order = Order, summary = Summary)
