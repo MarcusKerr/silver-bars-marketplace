@@ -70,4 +70,14 @@ describe LiveOrderBoard do
       live_order_board.summary
     end
   end
+
+  describe '#cancel' do
+    context 'cancelling buy order' do
+      it 'removes order from buy array' do
+        live_order_board.buy(user_id, order_quantity, price_per_kg)
+        live_order_board.cancel('1b')
+        expect { live_order_board.summary }.to output("LIVE ORDERS\n\nBUY:\nNo orders to display\n\nSELL:\nNo orders to display\n").to_stdout
+      end
+    end
+  end
 end
