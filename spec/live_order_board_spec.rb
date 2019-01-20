@@ -63,6 +63,10 @@ describe LiveOrderBoard do
         expect(mock_live_orders).to receive(:cancel).with('1b')
         live_order_board.cancel_order('1b')
       end
+
+      it 'raises error if invalid order id' do
+        expect { live_order_board.cancel_order(10) }.to raise_error('Order id must be a string')
+      end
     end
   end
 end
