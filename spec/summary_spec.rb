@@ -13,7 +13,7 @@ describe Summary do
       expect { Summary.display(orders) }.to output("LIVE ORDERS\n\nBUY:\n1b. 3.5kg for £303\n\nSELL:\n1s. 4.5kg for £404\n").to_stdout
     end
 
-    it 'outputs information for empty array' do
+    it 'outputs information for empty orders array' do
       expect { Summary.display(empty_orders) }.to output("LIVE ORDERS\n\nBUY:\nNo orders to display\n\nSELL:\nNo orders to display\n").to_stdout
     end
   end
