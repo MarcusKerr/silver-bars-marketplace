@@ -2,15 +2,23 @@
 
 class Summary
   def self.display(orders)
-    print"LIVE ORDERS\n\n"
-    print"BUY:\n"
-    orders[:buys].each do |order|
-      printf("%sb. %10s\n", ((orders[:buys].index(order) + 1)).to_s, "#{order.quantity}kg for £#{order.price_per_kg}")
-    end
+    print "LIVE ORDERS\n\n"
+    display_orders(orders[:buys], orders[:sells])
+  end
 
+  def self.display_orders(buy_orders, sell_orders)
+    print "BUY:\n"
+    format_orders(buy_orders)
     print "\nSELL:\n"
-    orders[:sales].each do |order|
-      printf("%ss. %10s\n", ((orders[:sales].index(order) + 1)).to_s, "#{order.quantity}kg for £#{order.price_per_kg}")
+    format_orders(sell_orders)
+  end
+
+  def self.format_orders(orders)
+    prefix = orders[0].type == :BUY ? 'b' : 's'
+    orders.each do |order|
+      printf("%s%s. %10s\n", ((orders.index(order) + 1)).to_s, prefix, "#{order.quantity}kg for £#{order.price_per_kg}")
     end
   end
+
+  private_class_method :display_orders, :format_orders
 end
