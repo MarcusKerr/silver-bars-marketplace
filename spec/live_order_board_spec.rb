@@ -10,7 +10,7 @@ describe LiveOrderBoard do
   let(:sell) { :SELL }
 
   let(:mock_order_class) { double :order_class, register: mock_order }
-  let(:mock_order) { double :order_instane }
+  let(:mock_order) { double :order_instance }
 
   let(:mock_summary_class) { double :summary_class }
 
@@ -76,7 +76,7 @@ describe LiveOrderBoard do
       it 'removes order from buy array' do
         live_order_board.buy(user_id, order_quantity, price_per_kg)
         live_order_board.cancel('1b')
-        expect { live_order_board.summary }.to output("LIVE ORDERS\n\nBUY:\nNo orders to display\n\nSELL:\nNo orders to display\n").to_stdout
+        expect(live_order_board.orders[:buys]).not_to include(mock_order)
       end
     end
   end

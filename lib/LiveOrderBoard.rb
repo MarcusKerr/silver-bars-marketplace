@@ -25,6 +25,12 @@ class LiveOrderBoard
     @orders[:sells] << @order.register(user_id, order_quantity, price_per_kg, :SELL)
   end
 
+  def cancel(order_id)
+    order_index = order_id[0].to_i - 1
+    order_array = order_id[1] == 'b' ? @orders[:buys] : @orders[:sells]
+    order_array.delete_at(order_index)
+  end
+
   def summary
     @summary.display(@orders)
   end
