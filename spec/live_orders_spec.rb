@@ -31,7 +31,7 @@ describe LiveOrders do
     end
   end
 
-  describe'#cancel' do
+  describe '#cancel' do
     context 'cancel buy order' do
       it'removes order from buy array' do
         live_orders.add(user_id, order_quantity, price_per_kg, buy)
