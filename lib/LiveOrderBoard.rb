@@ -7,6 +7,7 @@ class LiveOrderBoard
   USER_ID_ERROR = 'User id must be a whole number'
   QUANTITY_ERROR = 'Order quantity must be a number(kg)'
   PRICE_ERROR = 'Price per kg must be a number(£)'
+  ORDER_ID_ERROR = 'Order id must be a string'
 
   def initialize(live_orders = LiveOrders.new, summary = Summary)
     @live_orders = live_orders
@@ -24,6 +25,7 @@ class LiveOrderBoard
   end
 
   def cancel_order(order_id)
+    validate_order_id(order_id)
     @live_orders.cancel(order_id)
   end
 
@@ -49,6 +51,10 @@ class LiveOrderBoard
 
   def validate_price(price_per_kg)
     raise PRICE_ERROR unless numeric?(price_per_kg)
+  end
+
+  def validate_order_id(order_id)
+    raise ORDER_ID_ERROR unless order_id.is_a? String
   end
 
   def numeric?(value)
