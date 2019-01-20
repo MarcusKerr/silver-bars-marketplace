@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'Order'
+require_relative 'Summary'
 
 USER_ID_ERROR = 'User id must be a whole number'
 QUANTITY_ERROR = 'Order quantity must be a number(kg)'
@@ -9,8 +10,9 @@ PRICE_ERROR = 'Price per kg must be a number(£)'
 class LiveOrderBoard
   attr_reader :orders
 
-  def initialize(order = Order)
+  def initialize(order = Order, summary = Summary)
     @order = order
+    @summary = summary
     @orders = { buys: [], sells: [] }
   end
 
@@ -22,6 +24,10 @@ class LiveOrderBoard
   def sell(user_id, order_quantity, price_per_kg)
     validate_details(user_id, order_quantity, price_per_kg)
     @orders[:sells] << @order.register(user_id, order_quantity, price_per_kg, :SELL)
+  end
+
+  def summary
+    @summary.display(@orders)
   end
 
   private

@@ -64,10 +64,10 @@ describe LiveOrderBoard do
     end
   end
 
-  describe '#get_summary' do
+  describe '#summary' do
     it 'delegates to Summary' do
       expect(mock_summary_class).to receive(:display).with(hash_including(buys: [], sells: []))
-      live_order_board.get_summary
+      live_order_board.summary
     end
   end
 end
