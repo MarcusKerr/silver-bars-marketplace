@@ -12,12 +12,19 @@ describe LiveOrderBoard do
   let(:mock_order_class) { double :order_class, register: mock_order }
   let(:mock_order) { double :order_instane }
 
+  let(:mock_summary_class) { double :summary_class, :get_summay }
+
   let(:live_order_board) { described_class.new(mock_order_class) }
 
   describe '#buy' do
-    it 'delegates to the order object' do
+    it 'delegates to Order' do
       expect(mock_order_class).to receive(:register).with(user_id, order_quantity, price_per_kg, buy)
       live_order_board.buy(user_id, order_quantity, price_per_kg)
+    end
+
+    it 'adds order to buy array' do
+      live_order_board.buy(user_id, order_quantity, price_per_kg)
+      expect(live_order_board.orders[:buys]).to include(mock_order)
     end
 
     it 'raises error if invalid user id is submitted' do
@@ -34,9 +41,14 @@ describe LiveOrderBoard do
   end
 
   describe '#sell' do
-    it 'delegates to the order object' do
+    it 'delegates to Order' do
       expect(mock_order_class).to receive(:register).with(user_id, order_quantity, price_per_kg, sell)
       live_order_board.sell(user_id, order_quantity, price_per_kg)
+    end
+
+    it 'adds order to sell array' do
+      live_order_board.buy(user_id, order_quantity, price_per_kg)
+      expect(live_order_board.orders[:sells]).to include(mock_order)
     end
 
     it 'raises error if invalid user id is submitted' do

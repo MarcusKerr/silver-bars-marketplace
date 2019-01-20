@@ -16,9 +16,13 @@ class Summary
   def self.format_orders(orders)
     prefix = orders[0].type == :BUY ? 'b' : 's'
     orders.each do |order|
-      printf("%s%s. %10s\n", ((orders.index(order) + 1)).to_s, prefix, "#{order.quantity}kg for £#{order.price_per_kg}")
+      printf("%s%s. %10s\n", ((orders.index(order) + 1)).to_s, prefix, format_order_details(order))
     end
   end
 
-  private_class_method :display_orders, :format_orders
+  def self.format_order_details(order)
+    "#{order.quantity}kg for £#{order.price_per_kg}"
+  end
+
+  private_class_method :display_orders, :format_orders, :format_order_details
 end
