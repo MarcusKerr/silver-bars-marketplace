@@ -12,9 +12,9 @@ describe LiveOrderBoard do
   let(:mock_order_class) { double :order_class, register: mock_order }
   let(:mock_order) { double :order_instane }
 
-  let(:mock_summary_class) { double :summary_class, :get_summay }
+  let(:mock_summary_class) { double :summary_class }
 
-  let(:live_order_board) { described_class.new(mock_order_class) }
+  let(:live_order_board) { described_class.new(mock_order_class, mock_summary_class) }
 
   describe '#buy' do
     it 'delegates to Order' do
@@ -61,6 +61,13 @@ describe LiveOrderBoard do
 
     it 'raises error if invalid price is submitted' do
       expect { live_order_board.sell(user_id, order_quantity, 'price_per_kg') }.to raise_error('Price per kg must be a number(£)')
+    end
+  end
+
+  describe '#get_summary' do
+    it 'delegates to Summary' do
+      expect(mock_summary_class).to receive(:display).with(hash_including(buys: [], sells: []))
+      live_order_board.get_summary
     end
   end
 end
