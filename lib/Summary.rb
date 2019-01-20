@@ -20,7 +20,7 @@ class Summary
   end
 
   def self.print_orders(orders)
-    prefix = orders[0].type == :BUY ? 'b' : 's'
+    prefix = buy?(orders[0]) ? 'b' : 's'
     sorted_orders = sort_orders(orders)
     sorted_orders.each do |order|
       printf("%s%s. %10s\n", ((orders.index(order) + 1)).to_s, prefix, format_order_details(order))
@@ -33,12 +33,17 @@ class Summary
 
   def self.sort_orders(orders)
     sorted_orders = orders.sort_by &:price_per_kg
-    orders[0].type == :BUY ? sorted_orders.reverse : sorted_orders
+    buy?(orders[0]) ? sorted_orders.reverse : sorted_orders
+  end
+
+  def self.buy?(index_order)
+    index_order.type == :BUY
   end
 
   private_class_method  :display_orders,
                         :format_order_display,
                         :print_orders,
                         :format_order_details,
-                        :sort_orders
+                        :sort_orders, 
+                        :buy?
 end
