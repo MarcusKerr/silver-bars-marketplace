@@ -47,7 +47,7 @@ describe LiveOrderBoard do
     end
 
     it 'adds order to sell array' do
-      live_order_board.buy(user_id, order_quantity, price_per_kg)
+      live_order_board.sell(user_id, order_quantity, price_per_kg)
       expect(live_order_board.orders[:sells]).to include(mock_order)
     end
 

@@ -7,18 +7,21 @@ QUANTITY_ERROR = 'Order quantity must be a number(kg)'
 PRICE_ERROR = 'Price per kg must be a number(£)'
 
 class LiveOrderBoard
+  attr_reader :orders
+
   def initialize(order = Order)
     @order = order
+    @orders = { buys: [], sells: [] }
   end
 
   def buy(user_id, order_quantity, price_per_kg)
     validate_details(user_id, order_quantity, price_per_kg)
-    @order.register(user_id, order_quantity, price_per_kg, :BUY)
+    @orders[:buys] << @order.register(user_id, order_quantity, price_per_kg, :BUY)
   end
 
   def sell(user_id, order_quantity, price_per_kg)
     validate_details(user_id, order_quantity, price_per_kg)
-    @order.register(user_id, order_quantity, price_per_kg, :SELL)
+    @orders[:sells] << @order.register(user_id, order_quantity, price_per_kg, :SELL)
   end
 
   private
