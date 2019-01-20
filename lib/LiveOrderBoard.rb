@@ -1,38 +1,34 @@
 # frozen_string_literal: true
 
-require_relative 'Order'
+require_relative 'LiveOrders'
 require_relative 'Summary'
 
 class LiveOrderBoard
   USER_ID_ERROR = 'User id must be a whole number'
   QUANTITY_ERROR = 'Order quantity must be a number(kg)'
   PRICE_ERROR = 'Price per kg must be a number(£)'
-  attr_reader :orders
 
-  def initialize(order = Order, summary = Summary)
-    @order = order
+  def initialize(live_orders = LiveOrders.new, summary = Summary)
+    @live_orders = live_orders
     @summary = summary
-    @orders = { buys: [], sells: [] }
   end
 
   def buy(user_id, order_quantity, price_per_kg)
     validate_details(user_id, order_quantity, price_per_kg)
-    @orders[:buys] << @order.register(user_id, order_quantity, price_per_kg, :BUY)
+    @live_orders.add(user_id, order_quantity, price_per_kg, :BUY)
   end
 
   def sell(user_id, order_quantity, price_per_kg)
     validate_details(user_id, order_quantity, price_per_kg)
-    @orders[:sells] << @order.register(user_id, order_quantity, price_per_kg, :SELL)
+    @live_orders.add(user_id, order_quantity, price_per_kg, :SELL)
   end
 
-  def cancel(order_id)
-    order_index = order_id[0].to_i - 1
-    order_array = order_id[1] == 'b' ? @orders[:buys] : @orders[:sells]
-    order_array.delete_at(order_index)
+  def cancel_order(order_id)
+    @live_orders.cancel(order_id)
   end
 
   def summary
-    @summary.display(@orders)
+    @summary.display(@live_orders)
   end
 
   private

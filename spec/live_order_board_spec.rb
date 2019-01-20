@@ -3,28 +3,21 @@
 require 'LiveOrderBoard'
 
 describe LiveOrderBoard do
-  let(:user_id) { 10 }
+  let(:user_id)        { 10 }
   let(:order_quantity) { 3.5 }
-  let(:price_per_kg) { 303 }
-  let(:buy) { :BUY }
-  let(:sell) { :SELL }
+  let(:price_per_kg)   { 303 }
+  let(:buy)            { :BUY }
+  let(:sell)           { :SELL }
 
-  let(:mock_order_class) { double :order_class, register: mock_order }
-  let(:mock_order) { double :order_instance }
+  let(:mock_live_orders)    { double :live_orders_instance }
+  let(:mock_summary_class)  { double :summary_class }
 
-  let(:mock_summary_class) { double :summary_class }
-
-  let(:live_order_board) { described_class.new(mock_order_class, mock_summary_class) }
+  let(:live_order_board) { described_class.new(mock_live_orders, mock_summary_class) }
 
   describe '#buy' do
-    it 'delegates to Order' do
-      expect(mock_order_class).to receive(:register).with(user_id, order_quantity, price_per_kg, buy)
+    it 'delegates to LiveOrders' do
+      expect(mock_live_orders).to receive(:add).with(user_id, order_quantity, price_per_kg, buy)
       live_order_board.buy(user_id, order_quantity, price_per_kg)
-    end
-
-    it 'adds order to buy array' do
-      live_order_board.buy(user_id, order_quantity, price_per_kg)
-      expect(live_order_board.orders[:buys]).to include(mock_order)
     end
 
     it 'raises error if invalid user id is submitted' do
@@ -41,14 +34,9 @@ describe LiveOrderBoard do
   end
 
   describe '#sell' do
-    it 'delegates to Order' do
-      expect(mock_order_class).to receive(:register).with(user_id, order_quantity, price_per_kg, sell)
+    it 'delegates to LiveOrder' do
+      expect(mock_live_orders).to receive(:add).with(user_id, order_quantity, price_per_kg, sell)
       live_order_board.sell(user_id, order_quantity, price_per_kg)
-    end
-
-    it 'adds order to sell array' do
-      live_order_board.sell(user_id, order_quantity, price_per_kg)
-      expect(live_order_board.orders[:sells]).to include(mock_order)
     end
 
     it 'raises error if invalid user id is submitted' do
@@ -62,21 +50,18 @@ describe LiveOrderBoard do
     it 'raises error if invalid price is submitted' do
       expect { live_order_board.sell(user_id, order_quantity, 'price_per_kg') }.to raise_error('Price per kg must be a number(£)')
     end
-  end
 
-  describe '#summary' do
-    it 'delegates to Summary' do
-      expect(mock_summary_class).to receive(:display).with(hash_including(buys: [], sells: []))
-      live_order_board.summary
+    describe '#summary' do
+      it 'delegates to Summary' do
+        expect(mock_summary_class).to receive(:display).with(mock_live_orders)
+        live_order_board.summary
+      end
     end
-  end
 
-  describe '#cancel' do
-    context 'cancelling buy order' do
-      it 'removes order from buy array' do
-        live_order_board.buy(user_id, order_quantity, price_per_kg)
-        live_order_board.cancel('1b')
-        expect(live_order_board.orders[:buys]).not_to include(mock_order)
+    describe '#cancel' do
+      it 'delegates to LiveOrder' do
+        expect(mock_live_orders).to receive(:cancel).with('1b')
+        live_order_board.cancel_order('1b')
       end
     end
   end

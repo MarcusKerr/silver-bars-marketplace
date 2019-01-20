@@ -5,7 +5,7 @@ class Summary
 
   def self.display(orders)
     print "LIVE ORDERS\n\n"
-    display_orders(orders[:buys], orders[:sells])
+    display_orders(orders.buys, orders.sells)
   end
 
   def self.display_orders(buy_orders, sell_orders)
@@ -44,6 +44,6 @@ class Summary
                         :format_order_display,
                         :print_orders,
                         :format_order_details,
-                        :sort_orders, 
+                        :sort_orders,
                         :buy?
 end
