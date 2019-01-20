@@ -3,9 +3,14 @@
 require 'Summary'
 
 describe Summary do
-  let(:mock_buy_order) { double :order, user_id: 10, quantity: 3.5, price_per_kg: 303, type: :BUY }
-  let(:mock_sell_order) { double :order, user_id: 11, quantity: 4.5, price_per_kg: 404, type: :SELL }
-  let(:orders) { { buys: [mock_buy_order], sells: [mock_sell_order] } }
+  let(:mock_buy_order_1) { double :order, user_id: 10, quantity: 3.5, price_per_kg: 303, type: :BUY }
+  let(:mock_buy_order_2) { double :order, user_id: 100, quantity: 35, price_per_kg: 3030, type: :BUY }
+
+  let(:mock_sell_order_1) { double :order, user_id: 11, quantity: 4.5, price_per_kg: 404, type: :SELL }
+  let(:mock_sell_order_2) { double :order, user_id: 110, quantity: 45, price_per_kg: 4040, type: :SELL }
+
+  let(:orders) { { buys: [mock_buy_order_1], sells: [mock_sell_order_1] } }
+  let(:multiple_orders) { { buys: [mock_buy_order_1, mock_buy_order_2], sells: [mock_sell_order_1, mock_sell_order_2] } }
   let(:empty_orders) { { buys: [], sells: [] } }
 
   describe '#display' do
@@ -13,8 +18,16 @@ describe Summary do
       expect { Summary.display(orders) }.to output("LIVE ORDERS\n\nBUY:\n1b. 3.5kg for £303\n\nSELL:\n1s. 4.5kg for £404\n").to_stdout
     end
 
-    it 'outputs information for empty orders array' do
-      expect { Summary.display(empty_orders) }.to output("LIVE ORDERS\n\nBUY:\nNo orders to display\n\nSELL:\nNo orders to display\n").to_stdout
+    context 'no orders' do
+      it 'outputs information for empty orders array' do
+        expect { Summary.display(empty_orders) }.to output("LIVE ORDERS\n\nBUY:\nNo orders to display\n\nSELL:\nNo orders to display\n").to_stdout
+      end
+    end
+
+    context 'multiple orders' do
+      it 'displays BUY orders highest price first, SELL lowest first' do
+        expect { Summary.display(multiple_orders) }.to output("LIVE ORDERS\n\nBUY:\n1b. 35kg for £3030\n2b. 3.5kg for £303\n\nSELL:\n1s. 4.5kg for £404\n2s. 45kg for £4040\n").to_stdout
+      end
     end
   end
 end
