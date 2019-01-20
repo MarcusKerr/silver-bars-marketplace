@@ -50,23 +50,23 @@ describe LiveOrderBoard do
     it 'raises error if invalid price is submitted' do
       expect { live_order_board.sell(user_id, order_quantity, 'price_per_kg') }.to raise_error('Price per kg must be a number(£)')
     end
+  end
 
-    describe '#summary' do
-      it 'delegates to Summary' do
-        expect(mock_summary_class).to receive(:display).with(mock_live_orders)
-        live_order_board.summary
-      end
+  describe '#summary' do
+    it 'delegates to Summary' do
+      expect(mock_summary_class).to receive(:display).with(mock_live_orders)
+      live_order_board.summary
+    end
+  end
+
+  describe '#cancel' do
+    it 'delegates to LiveOrder' do
+      expect(mock_live_orders).to receive(:cancel).with('1b')
+      live_order_board.cancel_order('1b')
     end
 
-    describe '#cancel' do
-      it 'delegates to LiveOrder' do
-        expect(mock_live_orders).to receive(:cancel).with('1b')
-        live_order_board.cancel_order('1b')
-      end
-
-      it 'raises error if invalid order id' do
-        expect { live_order_board.cancel_order(10) }.to raise_error('Order id must be a string')
-      end
+    it 'raises error if invalid order id' do
+      expect { live_order_board.cancel_order(10) }.to raise_error('Order id must be a string')
     end
   end
 end

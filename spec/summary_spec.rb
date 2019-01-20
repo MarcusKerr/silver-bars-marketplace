@@ -12,10 +12,11 @@ describe Summary do
   let(:mock_live_orders)           { double :live_orders_instance, buys: [mock_buy_order_1], sells: [mock_sell_order_1] }
   let(:mock_live_orders_multiple)  { double :live_orders_instance, buys: [mock_buy_order_1, mock_buy_order_2], sells: [mock_sell_order_2, mock_sell_order_1] }
   let(:mock_live_orders_empty)     { double :live_orders_instance, buys: [], sells: [] }
+  let(:mock_liver_orders_merge)    { double :live_orders_instance, buys: [mock_buy_order_1, mock_buy_order_1, mock_buy_order_2], sells: [mock_sell_order_1, mock_sell_order_2, mock_buy_order_1] }
 
   describe '#display' do
     it 'outputs summary information for array of orders' do
-      expect { Summary.display(mock_live_orders) }.to output("LIVE ORDERS\n\nBUY:\n1b. 3.5kg for £303\n\nSELL:\n1s. 4.5kg for £404\n").to_stdout
+      expect { Summary.display(mock_live_orders) }.to output("LIVE ORDERS\n\nBUY:\n3.5kg for £303 // order 1b\n\nSELL:\n4.5kg for £404 // order 1s\n").to_stdout
     end
 
     context 'no orders' do
@@ -26,8 +27,12 @@ describe Summary do
 
     context 'multiple orders' do
       it 'displays BUY orders highest price first, SELL lowest first' do
-        expect { Summary.display(mock_live_orders_multiple) }.to output("LIVE ORDERS\n\nBUY:\n2b. 35kg for £3030\n1b. 3.5kg for £303\n\nSELL:\n2s. 4.5kg for £404\n1s. 45kg for £4040\n").to_stdout
+        expect { Summary.display(mock_live_orders_multiple) }.to output("LIVE ORDERS\n\nBUY:\n35kg for £3030 // order 2b\n3.5kg for £303 // order 1b\n\nSELL:\n4.5kg for £404 // order 2s\n45kg for £4040 // order 1s\n").to_stdout
       end
+    end
+
+    it 'merges orders of the same price' do
+      expect { Summary.display(mock_liver_orders_merge) }.to output("LIVE ORDERS\n\nBUY:\n35kg for £3030 // order 3b\n7kg for £303 // order 1b + order 2b\n\nSELL:\n9kg for £404 // order 1s + order 3s\n1s. 45kg for £4040 // order 2s\n").to_stdout
     end
   end
 end
