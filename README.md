@@ -18,7 +18,7 @@ See the demand for silver bars on the market!
 2. Change into the directory `cd silver-bars-marketplace`
 3. run `bundle install` to add depencencies
 
-## How to use:
+### How to use:
 
 1. Enter your Ruby REPL and require the `LiveORderBoard.rb` file:
 
