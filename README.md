@@ -194,3 +194,5 @@ Notes:
 - Extract some logic from Summary to a seperate class to increase cohesion. Likeley to become Summary Class and Printer Class.
 
 - Extract `merge_orders` into multiple smaller methods!
+
+- Raise error if user enters order 1d that does not exist
