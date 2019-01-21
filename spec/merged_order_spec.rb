@@ -3,8 +3,8 @@
 require 'MergedOrder'
 
 describe MergedOrder do
-  let(:user_ids)       { [10, 11, 12] }
-  let(:order_ids)       { [101, 101, 102] }
+  let(:user_ids) { [10, 11, 12] }
+  let(:order_ids) { [101, 101, 102] }
   let(:quantity)       { 3.5 }
   let(:price_per_kg)   { 303 }
   let(:buy)            { :BUY }
@@ -17,7 +17,7 @@ describe MergedOrder do
       expect(merged_order.quantity).to eq 3.5
       expect(merged_order.price_per_kg).to eq 303
       expect(merged_order.type).to eq :BUY
-      expect(merged_order.id).to eq [101,101,102]
+      expect(merged_order.id).to eq [101, 101, 102]
     end
 
     it 'instantiates a new merged order with sell details' do
@@ -26,7 +26,7 @@ describe MergedOrder do
       expect(merged_order.quantity).to eq 3.5
       expect(merged_order.price_per_kg).to eq 303
       expect(merged_order.type).to eq :SELL
-      expect(merged_order.id).to eq [101,101,102]
+      expect(merged_order.id).to eq [101, 101, 102]
     end
   end
 end

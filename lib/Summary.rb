@@ -53,7 +53,7 @@ class Summary
     postfix = buy?(orders[0]) ? 'b' : 's'
     sorted_orders = sort_orders(orders)
     sorted_orders.each do |order|
-      puts "#{format_order_details(order)} // #{format_order_ids(order, postfix )}"
+      puts "#{format_order_details(order)} // #{format_order_ids(order, postfix)}"
     end
   end
 
@@ -67,17 +67,17 @@ class Summary
   end
 
   def self.format_order_details(order)
-    "#{order.quantity}kg for £#{order.price_per_kg}"
+    "#{order.quantity} kg for £#{order.price_per_kg}"
   end
 
   def self.format_order_ids(order, postfix)
     formatted_ids = []
     order.id.each do |id|
-      formatted_ids << "order #{id+1}#{postfix}"
+      formatted_ids << "order #{id + 1}#{postfix}"
     end
     formatted_ids.join(' + ')
   end
-  
+
   private_class_method  :display_orders,
                         :format_order_display,
                         :merge_orders,
