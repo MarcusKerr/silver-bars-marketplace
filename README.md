@@ -197,8 +197,8 @@ Notes:
 
 - Introduce module to hold order details to allow my tests to be more DRY.
 
-- Extract some logic from Summary to a seperate class to increase cohesion. Likeley to become Summary Class and Printer Class.
+- Extract some logic from Summary to a seperate class to increase cohesion and have classes with Single Responsibilty, my Summary class is doing way too much. Likeley to become Summary Class and Printer Class.
 
-- Extract `merge_orders` into multiple smaller methods!
+- Refactor `merge_orders` method into multiple smaller methods with single responsibility!
 
-- Raise error if user enters order 1d that does not exist
+- Raise error if user enters order id that does not exist
