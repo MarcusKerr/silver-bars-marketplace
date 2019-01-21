@@ -99,6 +99,12 @@ So that we can easily indentify BUY orders,
 We want the highest price to be displayed first.
 ```
 
+## Diagram:
+
+![silver_bars_marketplace](https://user-images.githubusercontent.com/15127871/51466504-4699dd00-1d62-11e9-878b-9109e3fe41de.png)
+
+
+
 ### Technologies:
 
 * Ruby
