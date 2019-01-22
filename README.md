@@ -40,8 +40,8 @@ $ irb
   - price per kg   (Integer/Float)
 
 ```
-> live_order_board.buy("Marcus", 3.5, 10)
-> live_order_board.sell("Kerr", 10, 3.50)
+> live_order_board.buy(1, 3.5, 10)
+> live_order_board.sell(2, 10, 3.50)
 ```
 
 4. To view the love order board, use the `summary` method:
