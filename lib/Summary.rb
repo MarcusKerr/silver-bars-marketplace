@@ -21,23 +21,9 @@ class Summary
     orders_arr.empty? ? print("#{NO_ORDERS_MESSAGE}\n") : merge_orders(orders_arr)
   end
 
-  def self.merge_orders(orders_arr)
+  def self.merge_orders(orders_arr, merge_orders_class = MergedOrder)
     grouped_orders = group_orders(orders_arr)
-    merged_orders = []
-    grouped_orders.each do |grouped_orders_arr|
-      index_order = grouped_orders_arr[0]
-      user_ids = []
-      order_ids = []
-      quantity = 0
-      price_per_kg = index_order.price_per_kg
-      type = index_order.type
-      grouped_orders_arr.each do |order|
-        user_ids << order.user_id
-        order_ids << orders_arr.index(order)
-        quantity += order.quantity
-      end
-      merged_orders << MergedOrder.create(user_ids, quantity, price_per_kg, type, order_ids)
-    end
+    merged_orders = merge_orders_class.create(grouped_orders, orders_arr)
     print_orders(merged_orders)
   end
 
