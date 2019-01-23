@@ -111,7 +111,7 @@ We want the highest price to be displayed first.
 * Rspec - Teating framework for Feature and Unit tests
 * Simplecov - Code coverage tool
 * Travis CI - Conitinuous Intergration tool monitoring state of master branch with each push
-* Rubocop - For linting Ruby syntax and conforming to a populat style guide
+* Rubocop - For linting Ruby syntax and conforming to a popular style guide
 
 ## Code extract:
 
@@ -175,7 +175,7 @@ Notes:
 
 1. Research orderboard to give more context to what I am making. This really helped to provide context and helped me to visualize a solution as I had no idea what an order board was.
 
-2. Refine the project requirements into user clear and concise user stories.
+2. Refine the project requirements into clear and concise user stories.
 
 3. Sketch diagram of my current understanding of the system, this is likely to evolve over time.
 
